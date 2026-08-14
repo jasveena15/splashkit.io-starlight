@@ -1,55 +1,28 @@
 from splashkit import *
 
-open_window("Font Has Size", 900, 650)
+def availability_text(available):
+    if available:
+        return "Available"
+
+    return "Not Available"
+
+
+open_window("Font Size Checker", 900, 650)
 
 arial_font = load_font("arial font", "arial.ttf")
-roboto_font = load_font("roboto font", "Roboto-Regular.ttf")
 
-size1 = 16
-size2 = 32
-size3 = 64
+unused_size = 16
+checked_size = 32
 
-arial_has_16 = font_has_size(arial_font, size1)
-arial_has_32 = font_has_size(arial_font, size2)
-arial_has_64 = font_has_size(arial_font, size3)
-
-roboto_has_16 = font_has_size(roboto_font, size1)
-roboto_has_32 = font_has_size(roboto_font, size2)
-roboto_has_64 = font_has_size(roboto_font, size3)
-
-arial_result_16 = "Not Available"
-arial_result_32 = "Not Available"
-arial_result_64 = "Not Available"
-
-roboto_result_16 = "Not Available"
-roboto_result_32 = "Not Available"
-roboto_result_64 = "Not Available"
-
-if arial_has_16:
-    arial_result_16 = "Available"
-
-if arial_has_32:
-    arial_result_32 = "Available"
-
-if arial_has_64:
-    arial_result_64 = "Available"
-
-if roboto_has_16:
-    roboto_result_16 = "Available"
-
-if roboto_has_32:
-    roboto_result_32 = "Available"
-
-if roboto_has_64:
-    roboto_result_64 = "Available"
+before_16 = font_has_size(arial_font, unused_size)
+before_32 = font_has_size(arial_font, checked_size)
 
 while not quit_requested():
     process_events()
-
     clear_screen(color_white())
 
     draw_text(
-        "FontHasSize checks if a font has already been loaded at a selected size.",
+        "font_has_size checks if a font has already been loaded at a selected size.",
         color_black(),
         arial_font,
         24,
@@ -57,23 +30,79 @@ while not quit_requested():
         20
     )
 
-    draw_text("Font: Arial", color_blue(), arial_font, 22, 20, 80)
-    draw_text("Size 16: " + arial_result_16, color_black(), arial_font, 20, 40, 120)
-    draw_text("Size 32: " + arial_result_32, color_black(), arial_font, 20, 40, 155)
-    draw_text("Size 64: " + arial_result_64, color_black(), arial_font, 20, 40, 190)
-
-    draw_text("Font: Roboto", color_red(), roboto_font, 22, 20, 280)
-    draw_text("Size 16: " + roboto_result_16, color_black(), roboto_font, 20, 40, 320)
-    draw_text("Size 32: " + roboto_result_32, color_black(), roboto_font, 20, 40, 355)
-    draw_text("Size 64: " + roboto_result_64, color_black(), roboto_font, 20, 40, 390)
+    draw_text(
+        "Before using Arial at size 32:",
+        color_blue(),
+        arial_font,
+        20,
+        20,
+        90
+    )
 
     draw_text(
-        "The results show whether each font is available at the checked sizes.",
+        "Size 16: " + availability_text(before_16),
+        color_black(),
+        arial_font,
+        20,
+        40,
+        130
+    )
+
+    draw_text(
+        "Size 32: " + availability_text(before_32),
+        color_black(),
+        arial_font,
+        20,
+        40,
+        165
+    )
+
+    draw_text(
+        "This line is drawn using Arial at size 32.",
+        color_red(),
+        arial_font,
+        checked_size,
+        20,
+        250
+    )
+
+    after_16 = font_has_size(arial_font, unused_size)
+    after_32 = font_has_size(arial_font, checked_size)
+
+    draw_text(
+        "After drawing text using Arial at size 32:",
+        color_blue(),
+        arial_font,
+        20,
+        20,
+        340
+    )
+
+    draw_text(
+        "Size 16: " + availability_text(after_16),
+        color_black(),
+        arial_font,
+        20,
+        40,
+        380
+    )
+
+    draw_text(
+        "Size 32: " + availability_text(after_32),
+        color_black(),
+        arial_font,
+        20,
+        40,
+        415
+    )
+
+    draw_text(
+        "The size used for drawing becomes available, while the unused size remains unavailable.",
         color_black(),
         arial_font,
         20,
         20,
-        500
+        520
     )
 
     refresh_screen_with_target_fps(60)
