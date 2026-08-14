@@ -1,87 +1,120 @@
 #include "splashkit.h"
 #include <string>
 
+std::string availability_text(bool available)
+{
+    if (available)
+    {
+        return "Available";
+    }
+
+    return "Not Available";
+}
+
 int main()
 {
-    open_window("Font Has Size", 900, 650);
+    open_window("Font Size Checker", 900, 650);
 
     font arial_font = load_font("arial font", "arial.ttf");
-    font roboto_font = load_font("roboto font", "Roboto-Regular.ttf");
 
-    int size1 = 16;
-    int size2 = 32;
-    int size3 = 64;
+    int unused_size = 16;
+    int checked_size = 32;
 
-    bool arial_has_16 = font_has_size(arial_font, size1);
-    bool arial_has_32 = font_has_size(arial_font, size2);
-    bool arial_has_64 = font_has_size(arial_font, size3);
-
-    bool roboto_has_16 = font_has_size(roboto_font, size1);
-    bool roboto_has_32 = font_has_size(roboto_font, size2);
-    bool roboto_has_64 = font_has_size(roboto_font, size3);
-
-    std::string arial_result_16 = "Not Available";
-    std::string arial_result_32 = "Not Available";
-    std::string arial_result_64 = "Not Available";
-
-    std::string roboto_result_16 = "Not Available";
-    std::string roboto_result_32 = "Not Available";
-    std::string roboto_result_64 = "Not Available";
-
-    if (arial_has_16)
-    {
-        arial_result_16 = "Available";
-    }
-
-    if (arial_has_32)
-    {
-        arial_result_32 = "Available";
-    }
-
-    if (arial_has_64)
-    {
-        arial_result_64 = "Available";
-    }
-
-    if (roboto_has_16)
-    {
-        roboto_result_16 = "Available";
-    }
-
-    if (roboto_has_32)
-    {
-        roboto_result_32 = "Available";
-    }
-
-    if (roboto_has_64)
-    {
-        roboto_result_64 = "Available";
-    }
+    bool before_16 = font_has_size(arial_font, unused_size);
+    bool before_32 = font_has_size(arial_font, checked_size);
 
     while (!quit_requested())
     {
         process_events();
-
         clear_screen(COLOR_WHITE);
 
-        draw_text("FontHasSize checks if a font has already been loaded at a selected size.", COLOR_BLACK, arial_font, 24, 20, 20);
+        draw_text(
+            "font_has_size checks if a font has already been loaded at a selected size.",
+            COLOR_BLACK,
+            arial_font,
+            24,
+            20,
+            20
+        );
 
-        draw_text("Font: Arial", COLOR_BLUE, arial_font, 22, 20, 80);
-        draw_text("Size 16: " + arial_result_16, COLOR_BLACK, arial_font, 20, 40, 120);
-        draw_text("Size 32: " + arial_result_32, COLOR_BLACK, arial_font, 20, 40, 155);
-        draw_text("Size 64: " + arial_result_64, COLOR_BLACK, arial_font, 20, 40, 190);
+        draw_text(
+            "Before using Arial at size 32:",
+            COLOR_BLUE,
+            arial_font,
+            20,
+            20,
+            90
+        );
 
-        draw_text("Font: Roboto", COLOR_RED, roboto_font, 22, 20, 280);
-        draw_text("Size 16: " + roboto_result_16, COLOR_BLACK, roboto_font, 20, 40, 320);
-        draw_text("Size 32: " + roboto_result_32, COLOR_BLACK, roboto_font, 20, 40, 355);
-        draw_text("Size 64: " + roboto_result_64, COLOR_BLACK, roboto_font, 20, 40, 390);
+        draw_text(
+            "Size 16: " + availability_text(before_16),
+            COLOR_BLACK,
+            arial_font,
+            20,
+            40,
+            130
+        );
 
-        draw_text("The results show whether each font is available at the checked sizes.", COLOR_DARK_GRAY, arial_font, 20, 20, 500);
+        draw_text(
+            "Size 32: " + availability_text(before_32),
+            COLOR_BLACK,
+            arial_font,
+            20,
+            40,
+            165
+        );
+
+        draw_text(
+            "This line is drawn using Arial at size 32.",
+            COLOR_RED,
+            arial_font,
+            checked_size,
+            20,
+            250
+        );
+
+        bool after_16 = font_has_size(arial_font, unused_size);
+        bool after_32 = font_has_size(arial_font, checked_size);
+
+        draw_text(
+            "After drawing text using Arial at size 32:",
+            COLOR_BLUE,
+            arial_font,
+            20,
+            20,
+            340
+        );
+
+        draw_text(
+            "Size 16: " + availability_text(after_16),
+            COLOR_BLACK,
+            arial_font,
+            20,
+            40,
+            380
+        );
+
+        draw_text(
+            "Size 32: " + availability_text(after_32),
+            COLOR_BLACK,
+            arial_font,
+            20,
+            40,
+            415
+        );
+
+        draw_text(
+            "The size used for drawing becomes available, while the unused size remains unavailable.",
+            COLOR_DARK_GRAY,
+            arial_font,
+            20,
+            20,
+            520
+        );
 
         refresh_screen(60);
     }
 
     close_all_windows();
-
     return 0;
 }
