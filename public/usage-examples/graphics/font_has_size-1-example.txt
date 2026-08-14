@@ -1,1 +1,1 @@
-Font Has Size Example
+Font Size Checker
