@@ -1,8 +1,8 @@
 using SplashKitSDK;
 
-Conversation studyConversation = new Conversation();
-Conversation travelConversation = new Conversation();
-Conversation codingConversation = new Conversation();
+Conversation studyConversation = SplashKit.CreateConversation();
+Conversation travelConversation = SplashKit.CreateConversation();
+Conversation codingConversation = SplashKit.CreateConversation();
 
 SplashKit.WriteLine("Three AI conversations have been created:");
 SplashKit.WriteLine("- Study assistant");
