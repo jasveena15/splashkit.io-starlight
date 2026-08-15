@@ -17,18 +17,18 @@ namespace ConversationIsReplyingExample
             SplashKit.WriteLine("");
             SplashKit.WriteLine("AI reply:");
 
-            SplashKit.ConversationAddMessage(chat, question);
+            chat.AddMessage(question);
 
-            while (SplashKit.ConversationIsReplying(chat))
+            while (chat.IsReplying())
             {
-                SplashKit.Write(SplashKit.ConversationGetReplyPiece(chat));
+                SplashKit.Write(chat.GetReplyPiece());
             }
 
             SplashKit.WriteLine("");
             SplashKit.WriteLine("");
             SplashKit.WriteLine("Status: Reply complete.");
 
-            SplashKit.FreeConversation(chat);
+            chat.Free();
         }
     }
 }
