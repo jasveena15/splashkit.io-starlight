@@ -1,3 +1,4 @@
+using SplashKitSDK;
 using static SplashKitSDK.SplashKit;
 
 Conversation studyConversation = CreateConversation();
@@ -12,6 +13,6 @@ WriteLine("");
 
 WriteLine("Freeing all loaded conversations...");
 
-FreeAllConversations();
+GenerativeAi.FreeAll();
 
 WriteLine("All conversation resources have been released.");
