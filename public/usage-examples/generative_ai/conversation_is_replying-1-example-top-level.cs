@@ -12,15 +12,15 @@ WriteLine("Status: AI is replying...");
 WriteLine("");
 WriteLine("AI reply:");
 
-ConversationAddMessage(chat, question);
+chat.AddMessage(question);
 
-while (ConversationIsReplying(chat))
+while (chat.IsReplying())
 {
-    Write(ConversationGetReplyPiece(chat));
+    Write(chat.GetReplyPiece());
 }
 
 WriteLine("");
 WriteLine("");
 WriteLine("Status: Reply complete.");
 
-FreeConversation(chat);
+chat.Free();
